@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-def asignacion(dParcelas, dCultivos, asign):
+def asignacion(parcelas, cultivos, asign):
     _show_introduccion_message()
 
-    if dParcelas == {} or dCultivos == {}:
+    if parcelas == {} or cultivos == {}:
         _show_need_one_pacela_and_one_cultivo_message()
         return
 
-    for parcela in dParcelas:
-        for cultivo in dCultivos:
-            _asignate_parcela_to_cultivo(asign, cultivo, dCultivos, dParcelas, parcela)
+    for parcela in parcelas:
+        for cultivo in cultivos:
+            _asignate_parcela_to_cultivo(parcelas, cultivos, parcela, cultivo, asign)
 
     _sort_and_update(asign)
 
@@ -17,17 +17,17 @@ def asignacion(dParcelas, dCultivos, asign):
         _show_no_asignations_message()
 
 
-def _asignate_parcela_to_cultivo(asign, cultivo, dCultivos, dParcelas, parcela):
-    if dParcelas[parcela][0] != dCultivos[cultivo][0]:
+def _asignate_parcela_to_cultivo(parcelas, cultivos, parcela, cultivo, asign):
+    if parcelas[parcela][0] != cultivos[cultivo][0]:
         return
-    if dParcelas[parcela][1] > dCultivos[cultivo][3]:
+    if parcelas[parcela][1] > cultivos[cultivo][3]:
         return
     if parcela in asign.values():
         return
     if cultivo in asign:
         return
 
-    _show_asign_message(cultivo, parcela)
+    _show_asign_message(parcela, cultivo)
     asign.update({cultivo: parcela})
 
 
@@ -38,7 +38,7 @@ def _sort_and_update(asign):
         asign.update({asign_sorted[asignacion][0]: asign_sorted[asignacion][1]})
 
 
-def _show_asign_message(cultivo, parcela):
+def _show_asign_message(parcela, cultivo):
     print('Se asigna el cultivo', cultivo, 'a la parcela', parcela, '\n')
 
 
